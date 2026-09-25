@@ -1,0 +1,43 @@
+{
+  "entities": {
+    "User": {
+      "title": "User Profile",
+      "description": "User account profile data",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "email": { "type": "string" },
+        "displayName": { "type": "string" },
+        "photoURL": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["uid", "email"]
+    },
+    "ClipProject": {
+      "title": "Clip Project",
+      "description": "Saved clip processing project history",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "videoTitle": { "type": "string" },
+        "videoDuration": { "type": "number" },
+        "clipCount": { "type": "number" },
+        "aspectRatio": { "type": "string" },
+        "driveFolderName": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "userId", "videoTitle"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "User profile document"
+    },
+    "/users/{userId}/projects/{projectId}": {
+      "schema": "ClipProject",
+      "description": "User video slicing project history"
+    }
+  }
+}

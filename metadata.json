@@ -1,0 +1,6 @@
+{
+  "name": "CineCut AI - Video Clipper & Drive Sync",
+  "description": "Automated movie & long video splitter into short customizable clips with AI scene analysis and auto-upload to Google Drive.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
