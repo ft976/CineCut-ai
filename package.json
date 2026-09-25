@@ -2,6 +2,8 @@
   "name": "ai-studio-applet",
   "version": "0.1.0",
   "private": true,
+  "license": "MIT",
+  "author": "rehan97",
   "scripts": {
     "dev": "next dev",
     "build": "next build",

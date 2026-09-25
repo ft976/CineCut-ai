@@ -15,6 +15,7 @@
   <img src="https://img.shields.io/badge/TypeScript-5.9-blue?style=for-the-badge&logo=typescript" alt="TypeScript" />
   <img src="https://img.shields.io/badge/Tailwind_CSS-v4-38bdf8?style=for-the-badge&logo=tailwind-css" alt="Tailwind CSS" />
   <img src="https://img.shields.io/badge/Google_Drive-OAuth_2.0-4285F4?style=for-the-badge&logo=googledrive" alt="Google Drive" />
+  <img src="https://img.shields.io/badge/License-MIT-green?style=for-the-badge" alt="MIT License" />
   <img src="https://img.shields.io/badge/Developer-rehan97-emerald?style=for-the-badge" alt="Developer" />
 </p>
 

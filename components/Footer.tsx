@@ -69,6 +69,10 @@ export function Footer({ onShowInfoModal, onShowHistoryModal }: FooterProps) {
           <div className="flex items-center gap-1.5">
             <span>© {currentYear} CineCut AI</span>
             <span>•</span>
+            <span className="text-slate-400 font-mono text-[10px] bg-slate-900 px-1.5 py-0.5 rounded border border-slate-800">
+              MIT License
+            </span>
+            <span>•</span>
             <span>Developed by rehan97</span>
           </div>
         </div>
