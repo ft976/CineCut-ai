@@ -25,8 +25,10 @@ export function ClipPreviewModal({
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const [currentTime, setCurrentTime] = useState<number>(0);
 
+  const resolvedPreviewUrl = segment?.blobUrl || segment?.downloadUrl || null;
+
   useEffect(() => {
-    if (!segment || segment.blobUrl || !videoRef.current) return;
+    if (!segment || resolvedPreviewUrl || !videoRef.current) return;
 
     const vid = videoRef.current;
 
@@ -55,27 +57,27 @@ export function ClipPreviewModal({
       vid.removeEventListener('loadedmetadata', handleLoadedMetadata);
       vid.removeEventListener('timeupdate', handleTimeUpdate);
     };
-  }, [segment]);
+  }, [segment, resolvedPreviewUrl]);
 
   if (!segment) return null;
 
   // Active caption
   const activeCaption =
-    !segment.blobUrl && canvaConfig?.enabled && captions && captions.length > 0
+    !resolvedPreviewUrl && canvaConfig?.enabled && captions && captions.length > 0
       ? captions.find((c) => currentTime >= c.startTime && currentTime <= c.endTime)
       : null;
 
   return (
-    <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4">
-      <div className="bg-slate-900 border border-slate-800 rounded-2xl max-w-lg w-full p-6 shadow-2xl space-y-5 max-h-[90vh] overflow-y-auto">
-        <div className="flex items-center justify-between border-b border-slate-800 pb-3">
-          <h3 className="text-base font-bold text-slate-100 flex items-center gap-2">
-            <Play className="w-4 h-4 text-sky-400 fill-current" />
+    <div className="fixed inset-0 z-50 bg-slate-900/40 backdrop-blur-xs flex items-center justify-center p-4">
+      <div className="bg-white border border-slate-200 rounded-2xl max-w-lg w-full p-6 shadow-2xl space-y-5 max-h-[90vh] overflow-y-auto">
+        <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+          <h3 className="text-base font-bold text-slate-900 flex items-center gap-2">
+            <Play className="w-4 h-4 text-sky-600 fill-current" />
             {segment.label} Preview
           </h3>
           <button
             onClick={onClose}
-            className="text-slate-400 hover:text-white p-1 rounded-lg hover:bg-slate-800 cursor-pointer"
+            className="text-slate-400 hover:text-slate-700 p-1 rounded-lg hover:bg-slate-100 cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
@@ -84,13 +86,22 @@ export function ClipPreviewModal({
         {/* Video Player */}
         <div className="space-y-4">
           <div className="relative rounded-2xl overflow-hidden bg-slate-950 border border-slate-800 aspect-[9/16] max-h-[420px] mx-auto flex items-center justify-center group">
-            {segment.blobUrl ? (
-              <video src={segment.blobUrl} controls className="w-full h-full object-contain" />
+            {resolvedPreviewUrl ? (
+              <video
+                key={resolvedPreviewUrl}
+                src={resolvedPreviewUrl}
+                controls
+                autoPlay
+                playsInline
+                preload="auto"
+                className="w-full h-full object-contain"
+              />
             ) : (
               <video
                 ref={videoRef}
                 src={videoSourceUrl}
                 controls
+                playsInline
                 className="w-full h-full object-contain"
               />
             )}
@@ -205,18 +216,21 @@ export function ClipPreviewModal({
             )}
           </div>
 
-          <div className="text-xs text-slate-400 text-center font-mono">
+          <div className="text-xs text-slate-500 text-center font-mono">
             Timestamp: {formatTime(segment.startTime)} - {formatTime(segment.endTime)} ({Math.round(segment.duration)}s)
           </div>
 
           <div className="flex flex-col gap-2 pt-2">
-            {segment.blobUrl && (
+            {resolvedPreviewUrl && (
               <a
-                href={segment.blobUrl}
-                download={`${segment.label.replace(/[^a-z0-9]/gi, '_')}.webm`}
-                className="w-full py-2.5 rounded-xl bg-sky-500 hover:bg-sky-400 text-white text-xs font-bold flex items-center justify-center gap-2 transition-colors"
+                href={resolvedPreviewUrl}
+                download={`${segment.label.replace(/[^a-z0-9]/gi, '_')}.${
+                  segment.mimeType?.includes('mp4') ? 'mp4' : 'webm'
+                }`}
+                className="w-full py-2.5 rounded-xl bg-sky-600 hover:bg-sky-500 text-white text-xs font-bold flex items-center justify-center gap-2 transition-colors shadow-xs"
               >
-                <Download className="w-4 h-4" /> Download Video File
+                <Download className="w-4 h-4" /> Download Video File (
+                {segment.mimeType?.includes('mp4') ? '.MP4' : '.WebM'})
               </a>
             )}
 
@@ -232,9 +246,9 @@ export function ClipPreviewModal({
                 href={segment.driveViewLink}
                 target="_blank"
                 rel="noreferrer"
-                className="w-full py-2.5 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 hover:bg-emerald-500/20 text-xs font-bold flex items-center justify-center gap-2 transition-colors"
+                className="w-full py-2.5 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-700 hover:bg-emerald-100 text-xs font-bold flex items-center justify-center gap-2 transition-colors shadow-xs"
               >
-                <HardDrive className="w-4 h-4" /> Open File in Google Drive
+                <HardDrive className="w-4 h-4 text-emerald-600" /> Open File in Google Drive
               </a>
             )}
           </div>

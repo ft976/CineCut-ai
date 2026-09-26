@@ -122,18 +122,18 @@ export function Logo({ size = 'md', showSubtitle = false, className = '' }: Logo
       {/* Typography / Logotype */}
       <div className="flex flex-col justify-center">
         <div className="flex items-center gap-1.5 leading-none">
-          <span className={`font-black tracking-tight text-slate-100 ${textSizes[size]}`}>
-            Cine<span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-400 via-cyan-400 to-indigo-400">Cut</span>
+          <span className={`font-black tracking-tight text-slate-900 ${textSizes[size]}`}>
+            Cine<span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-600 via-cyan-600 to-indigo-600">Cut</span>
           </span>
           <span
-            className={`font-mono font-bold tracking-wider rounded-md bg-gradient-to-r from-sky-500/15 to-indigo-500/15 border border-sky-400/40 text-sky-400 uppercase shadow-sm ${aiBadgeSizes[size]}`}
+            className={`font-mono font-bold tracking-wider rounded-md bg-gradient-to-r from-sky-50 to-indigo-50 border border-sky-300 text-sky-700 uppercase shadow-xs ${aiBadgeSizes[size]}`}
           >
             AI
           </span>
         </div>
 
         {showSubtitle && (
-          <span className="text-[11px] font-medium tracking-normal text-slate-400 mt-1">
+          <span className="text-[11px] font-medium tracking-normal text-slate-500 mt-1">
             Precision Video Clipper & Cloud Sync
           </span>
         )}

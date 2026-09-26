@@ -18,13 +18,20 @@ import firebaseConfig from '../firebase-applet-config.json';
 
 const app = getApps().length > 0 ? getApp() : initializeApp(firebaseConfig);
 
-export const db = getFirestore(app, firebaseConfig.firestoreDatabaseId);
+export const db = getFirestore(
+  app,
+  (firebaseConfig as { firestoreDatabaseId?: string }).firestoreDatabaseId ||
+    'ai-studio-cinecutaivideocl-3bec6d65-446f-43b4-9eb4-4cb4966741a7'
+);
 export const auth = getAuth(app);
 
 export const googleProvider = new GoogleAuthProvider();
-googleProvider.addScope('https://www.googleapis.com/auth/drive.file');
+googleProvider.addScope('https://www.googleapis.com/auth/drive');
 googleProvider.addScope('https://www.googleapis.com/auth/userinfo.profile');
 googleProvider.addScope('https://www.googleapis.com/auth/userinfo.email');
+googleProvider.setCustomParameters({
+  prompt: 'consent select_account',
+});
 
 // Test connection as required by skill guidelines
 async function testConnection() {

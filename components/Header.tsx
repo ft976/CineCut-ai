@@ -40,7 +40,7 @@ export function Header({
 
   return (
     <>
-      <header className="sticky top-0 z-40 bg-slate-950/95 backdrop-blur-md border-b border-slate-800/80 px-4 md:px-6 py-3 shadow-md">
+      <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200/90 px-4 md:px-6 py-3 shadow-xs">
         <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3 md:gap-4">
           {/* Zone 1: Brand Logo & Title */}
           <div className="flex items-center gap-3">
@@ -49,27 +49,27 @@ export function Header({
 
           {/* Zone 2: Inline Google Drive Sync Bar (ONLY visible when Google Drive is connected!) */}
           {isConnected && (
-            <div className="hidden lg:flex items-center gap-2.5 bg-slate-900/80 border border-slate-800 rounded-xl px-3 py-1 text-xs">
-              <div className="flex items-center gap-1.5 text-slate-400">
-                <Folder className="w-3.5 h-3.5 text-sky-400 shrink-0" />
+            <div className="hidden lg:flex items-center gap-2.5 bg-slate-50 border border-slate-200 rounded-xl px-3 py-1 text-xs">
+              <div className="flex items-center gap-1.5 text-slate-600">
+                <Folder className="w-3.5 h-3.5 text-sky-600 shrink-0" />
                 <span>Folder:</span>
                 <input
                   type="text"
                   value={folderName}
                   onChange={(e) => onFolderNameChange(e.target.value)}
                   placeholder="CineCut_Clips"
-                  className="bg-transparent font-semibold text-slate-200 focus:outline-none w-28 text-xs border-b border-slate-700 focus:border-sky-400 transition-colors"
+                  className="bg-transparent font-semibold text-slate-800 focus:outline-none w-28 text-xs border-b border-slate-300 focus:border-sky-600 transition-colors"
                 />
               </div>
 
-              <span className="text-slate-700">|</span>
+              <span className="text-slate-300">|</span>
 
-              <label className="flex items-center gap-1.5 text-slate-300 cursor-pointer select-none">
+              <label className="flex items-center gap-1.5 text-slate-700 cursor-pointer select-none">
                 <input
                   type="checkbox"
                   checked={autoUpload}
                   onChange={(e) => onAutoUploadChange(e.target.checked)}
-                  className="accent-sky-500 cursor-pointer rounded"
+                  className="accent-sky-600 cursor-pointer rounded"
                 />
                 <span className="font-medium">Auto-Upload</span>
               </label>
@@ -81,23 +81,23 @@ export function Header({
             {/* History Trigger */}
             <button
               onClick={onShowHistoryModal}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 text-xs font-semibold transition-colors cursor-pointer"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200/80 border border-slate-200 text-slate-700 text-xs font-semibold transition-colors cursor-pointer shadow-xs"
               title="Slicing History"
             >
-              <History className="w-3.5 h-3.5 text-purple-400" />
+              <History className="w-3.5 h-3.5 text-purple-600" />
               <span className="hidden sm:inline">History</span>
             </button>
 
             {/* Google Drive Account Status */}
             {isConnected ? (
               <div className="flex items-center gap-2">
-                <div className="flex items-center gap-1.5 text-xs text-slate-200 bg-emerald-500/10 border border-emerald-500/20 px-3 py-1.5 rounded-lg">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+                <div className="flex items-center gap-1.5 text-xs text-emerald-800 bg-emerald-50 border border-emerald-200 px-3 py-1.5 rounded-lg shadow-xs">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
                   <span className="truncate max-w-[100px] sm:max-w-[140px] font-medium">{driveUser?.email}</span>
                 </div>
                 <button
                   onClick={() => setShowConfirmDisconnect(true)}
-                  className="p-1.5 rounded-lg bg-slate-900 hover:bg-rose-500/10 border border-slate-800 text-slate-400 hover:text-rose-400 transition-colors cursor-pointer"
+                  className="p-1.5 rounded-lg bg-slate-100 hover:bg-rose-50 border border-slate-200 text-slate-500 hover:text-rose-600 transition-colors cursor-pointer shadow-xs"
                   title="Disconnect Google Drive"
                 >
                   <LogOut className="w-3.5 h-3.5" />
@@ -107,7 +107,7 @@ export function Header({
               <button
                 onClick={onConnectDrive}
                 disabled={isDriveLoading || !isGisLoaded}
-                className="px-3.5 py-1.5 rounded-lg bg-sky-500 hover:bg-sky-400 text-white text-xs font-bold transition-all shadow-sm cursor-pointer disabled:opacity-50 flex items-center gap-1.5"
+                className="px-3.5 py-1.5 rounded-lg bg-sky-600 hover:bg-sky-500 text-white text-xs font-bold transition-all shadow-xs cursor-pointer disabled:opacity-50 flex items-center gap-1.5"
               >
                 {isDriveLoading ? (
                   <RefreshCw className="w-3.5 h-3.5 animate-spin" />
@@ -121,7 +121,7 @@ export function Header({
             {/* Help Info Trigger */}
             <button
               onClick={onShowInfoModal}
-              className="p-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-400 hover:text-slate-200 transition-colors cursor-pointer"
+              className="p-1.5 rounded-lg bg-slate-100 hover:bg-slate-200/80 border border-slate-200 text-slate-600 hover:text-slate-900 transition-colors cursor-pointer shadow-xs"
               title="Help & Info"
             >
               <Info className="w-4 h-4" />

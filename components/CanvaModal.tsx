@@ -121,22 +121,22 @@ export function CanvaModal({
   };
 
   return (
-    <div className="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-md flex items-center justify-center p-3 md:p-6 overflow-y-auto">
-      <div className="bg-slate-900 border border-slate-800 rounded-3xl max-w-4xl w-full p-5 md:p-6 shadow-2xl space-y-6 max-h-[92vh] flex flex-col my-auto">
+    <div className="fixed inset-0 z-50 bg-slate-900/40 backdrop-blur-xs flex items-center justify-center p-3 md:p-6 overflow-y-auto">
+      <div className="bg-white border border-slate-200 rounded-3xl max-w-4xl w-full p-5 md:p-6 shadow-2xl space-y-6 max-h-[92vh] flex flex-col my-auto">
         {/* Header */}
-        <div className="flex items-center justify-between border-b border-slate-800 pb-4">
+        <div className="flex items-center justify-between border-b border-slate-100 pb-4">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-[#00c4cc] to-[#7d2ae8] flex items-center justify-center shadow-lg shadow-purple-500/20 text-white font-black text-sm">
+            <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-[#00c4cc] to-[#7d2ae8] flex items-center justify-center shadow-md shadow-purple-500/15 text-white font-black text-sm">
               C
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <h3 className="text-base font-bold text-slate-100">Canva Studio for CineCut</h3>
-                <span className="text-[10px] px-2 py-0.5 rounded-full bg-gradient-to-r from-teal-500/20 to-purple-500/20 border border-teal-500/30 text-teal-300 font-bold uppercase tracking-wider">
+                <h3 className="text-base font-bold text-slate-900">Canva Studio for CineCut</h3>
+                <span className="text-[10px] px-2 py-0.5 rounded-full bg-teal-50 border border-teal-200 text-teal-700 font-bold uppercase tracking-wider">
                   Thumbnails & Covers
                 </span>
               </div>
-              <p className="text-xs text-slate-400">
+              <p className="text-xs text-slate-500">
                 Turn any video clip frame into viral YouTube, TikTok, and Reels thumbnails in Canva.
               </p>
             </div>
@@ -144,7 +144,7 @@ export function CanvaModal({
 
           <button
             onClick={onClose}
-            className="p-1.5 rounded-xl hover:bg-slate-800 text-slate-400 hover:text-white transition-colors cursor-pointer"
+            className="p-1.5 rounded-xl hover:bg-slate-100 text-slate-400 hover:text-slate-700 transition-colors cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
@@ -157,9 +157,9 @@ export function CanvaModal({
             {/* Clip Selector pills (if multiple clips exist) */}
             {allSegments.length > 0 && (
               <div className="space-y-1.5">
-                <div className="flex items-center justify-between text-xs text-slate-400 font-medium">
+                <div className="flex items-center justify-between text-xs text-slate-500 font-medium">
                   <span className="flex items-center gap-1">
-                    <Film className="w-3.5 h-3.5 text-sky-400" /> Sliced Clip Target:
+                    <Film className="w-3.5 h-3.5 text-sky-600" /> Sliced Clip Target:
                   </span>
                   <span>{allSegments.length} clips available</span>
                 </div>
@@ -170,8 +170,8 @@ export function CanvaModal({
                       onClick={() => handleSelectSegment(seg)}
                       className={`px-3 py-1.5 rounded-xl font-bold whitespace-nowrap cursor-pointer transition-all border ${
                         activeSegment?.id === seg.id
-                          ? 'bg-sky-500 text-white border-sky-400 shadow-md shadow-sky-500/20'
-                          : 'bg-slate-950 hover:bg-slate-800 text-slate-300 border-slate-800'
+                          ? 'bg-sky-600 text-white border-sky-600 shadow-xs'
+                          : 'bg-slate-50 hover:bg-slate-100 text-slate-700 border-slate-200'
                       }`}
                     >
                       Clip {seg.index + 1} ({formatTime(seg.startTime)})
@@ -182,7 +182,7 @@ export function CanvaModal({
             )}
 
             {/* Video Frame Preview / Canvas */}
-            <div className="relative rounded-2xl overflow-hidden bg-slate-950 border border-slate-800/80 aspect-video max-h-[300px] flex items-center justify-center group shadow-inner">
+            <div className="relative rounded-2xl overflow-hidden bg-slate-950 border border-slate-200 aspect-video max-h-[300px] flex items-center justify-center group shadow-inner">
               {videoUrl ? (
                 <>
                   <video
@@ -216,20 +216,20 @@ export function CanvaModal({
                   )}
                 </>
               ) : (
-                <div className="text-xs text-slate-500 flex flex-col items-center gap-2">
-                  <Film className="w-8 h-8 text-slate-700" />
+                <div className="text-xs text-slate-400 flex flex-col items-center gap-2">
+                  <Film className="w-8 h-8 text-slate-600" />
                   <span>No video loaded</span>
                 </div>
               )}
             </div>
 
             {/* Scrubber Controls */}
-            <div className="bg-slate-950/70 p-3 rounded-2xl border border-slate-800/70 space-y-2 text-xs">
-              <div className="flex items-center justify-between text-slate-400">
+            <div className="bg-slate-50 p-3 rounded-2xl border border-slate-200 space-y-2 text-xs">
+              <div className="flex items-center justify-between text-slate-600">
                 <span className="font-semibold flex items-center gap-1">
-                  <Sliders className="w-3.5 h-3.5 text-teal-400" /> Timestamp Scrubber:
+                  <Sliders className="w-3.5 h-3.5 text-teal-600" /> Timestamp Scrubber:
                 </span>
-                <span className="font-mono text-sky-400 font-bold">
+                <span className="font-mono text-sky-700 font-bold">
                   {formatTime(currentTimestamp)}
                 </span>
               </div>
@@ -247,19 +247,19 @@ export function CanvaModal({
                     videoRef.current.currentTime = val;
                   }
                 }}
-                className="w-full accent-teal-400 cursor-pointer"
+                className="w-full accent-teal-600 cursor-pointer"
               />
 
               <div className="flex items-center justify-between pt-1">
                 <button
                   onClick={() => handleCaptureCurrentFrame(currentTimestamp)}
                   disabled={isCapturing}
-                  className="px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700/80 text-slate-200 text-xs font-semibold flex items-center gap-1.5 transition-colors cursor-pointer"
+                  className="px-3 py-1.5 rounded-xl bg-white hover:bg-slate-100 border border-slate-200 text-slate-700 text-xs font-semibold flex items-center gap-1.5 transition-colors cursor-pointer shadow-2xs"
                 >
                   {isCapturing ? (
-                    <RefreshCw className="w-3.5 h-3.5 animate-spin text-teal-400" />
+                    <RefreshCw className="w-3.5 h-3.5 animate-spin text-teal-600" />
                   ) : (
-                    <Camera className="w-3.5 h-3.5 text-teal-400" />
+                    <Camera className="w-3.5 h-3.5 text-teal-600" />
                   )}
                   Capture Snapshot
                 </button>
@@ -267,9 +267,9 @@ export function CanvaModal({
                 <button
                   onClick={handleDownloadSnapshot}
                   disabled={!capturedFrameData.dataUrl}
-                  className="px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700/80 text-slate-200 text-xs font-semibold flex items-center gap-1.5 transition-colors cursor-pointer disabled:opacity-40"
+                  className="px-3 py-1.5 rounded-xl bg-white hover:bg-slate-100 border border-slate-200 text-slate-700 text-xs font-semibold flex items-center gap-1.5 transition-colors cursor-pointer disabled:opacity-40 shadow-2xs"
                 >
-                  <Download className="w-3.5 h-3.5 text-sky-400" /> Download PNG
+                  <Download className="w-3.5 h-3.5 text-sky-600" /> Download PNG
                 </button>
               </div>
             </div>
@@ -279,10 +279,10 @@ export function CanvaModal({
           <div className="lg:col-span-5 space-y-4 flex flex-col justify-between">
             <div className="space-y-3">
               <div className="flex items-center justify-between">
-                <span className="text-xs font-bold uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
-                  <Palette className="w-3.5 h-3.5 text-purple-400" /> Select Canva Template
+                <span className="text-xs font-bold uppercase tracking-wider text-slate-500 flex items-center gap-1.5">
+                  <Palette className="w-3.5 h-3.5 text-purple-600" /> Select Canva Template
                 </span>
-                <span className="text-[11px] text-teal-400 font-semibold">1-Click Open</span>
+                <span className="text-[11px] text-teal-700 font-semibold">1-Click Open</span>
               </div>
 
               {/* Template list */}
@@ -295,31 +295,31 @@ export function CanvaModal({
                       onClick={() => setSelectedPreset(preset)}
                       className={`p-3 rounded-2xl border transition-all cursor-pointer flex items-start justify-between gap-3 text-xs ${
                         isSelected
-                          ? 'bg-gradient-to-r from-teal-950/40 to-purple-950/40 border-teal-500/60 shadow-md shadow-teal-500/10'
-                          : 'bg-slate-950 hover:bg-slate-800/60 border-slate-800 text-slate-300'
+                          ? 'bg-teal-50/70 border-teal-400 shadow-xs'
+                          : 'bg-slate-50 hover:bg-slate-100/80 border-slate-200 text-slate-700'
                       }`}
                     >
                       <div className="space-y-1">
                         <div className="flex items-center gap-2">
-                          <span className="font-bold text-slate-100">{preset.title}</span>
+                          <span className="font-bold text-slate-900">{preset.title}</span>
                           <span
                             className={`px-1.5 py-0.5 rounded text-[10px] font-bold ${
                               isSelected
-                                ? 'bg-teal-500/20 text-teal-300'
-                                : 'bg-slate-800 text-slate-400'
+                                ? 'bg-teal-100 text-teal-800'
+                                : 'bg-slate-200 text-slate-600'
                             }`}
                           >
                             {preset.badge}
                           </span>
                         </div>
-                        <div className="text-[11px] text-slate-400">{preset.description}</div>
-                        <div className="text-[10px] font-mono text-slate-500">
+                        <div className="text-[11px] text-slate-500">{preset.description}</div>
+                        <div className="text-[10px] font-mono text-slate-400">
                           {preset.dimensions} • {preset.aspectRatio}
                         </div>
                       </div>
 
                       {isSelected && (
-                        <div className="w-5 h-5 rounded-full bg-teal-500 text-slate-950 flex items-center justify-center shrink-0 font-black">
+                        <div className="w-5 h-5 rounded-full bg-teal-600 text-white flex items-center justify-center shrink-0 font-black">
                           <Check className="w-3 h-3 stroke-[3]" />
                         </div>
                       )}
@@ -329,17 +329,17 @@ export function CanvaModal({
               </div>
 
               {/* Text Hook Customizer */}
-              <div className="bg-slate-950/80 p-3 rounded-2xl border border-slate-800/80 space-y-2 text-xs">
-                <div className="flex items-center justify-between text-slate-400 font-semibold">
+              <div className="bg-slate-50 p-3 rounded-2xl border border-slate-200 space-y-2 text-xs">
+                <div className="flex items-center justify-between text-slate-600 font-semibold">
                   <span>Viral Text Overlay Preview</span>
                   <label className="flex items-center gap-1.5 cursor-pointer">
                     <input
                       type="checkbox"
                       checked={showOverlay}
                       onChange={(e) => setShowOverlay(e.target.checked)}
-                      className="accent-teal-400 rounded"
+                      className="accent-teal-600 rounded"
                     />
-                    <span className="text-[11px] text-slate-300">Show</span>
+                    <span className="text-[11px] text-slate-700">Show</span>
                   </label>
                 </div>
 
@@ -353,7 +353,7 @@ export function CanvaModal({
                       value={customBadgeText}
                       onChange={(e) => setCustomBadgeText(e.target.value)}
                       placeholder="PART 1"
-                      className="w-full bg-slate-900 border border-slate-800 rounded-lg px-2 py-1 text-slate-200 font-semibold focus:outline-none focus:border-teal-400 text-xs"
+                      className="w-full bg-white border border-slate-300 rounded-lg px-2 py-1 text-slate-900 font-semibold focus:outline-none focus:border-teal-500 text-xs"
                     />
                   </div>
                   <div>
@@ -365,7 +365,7 @@ export function CanvaModal({
                       value={headlineText}
                       onChange={(e) => setHeadlineText(e.target.value)}
                       placeholder="CRAZY REVEAL"
-                      className="w-full bg-slate-900 border border-slate-800 rounded-lg px-2 py-1 text-slate-200 font-semibold focus:outline-none focus:border-teal-400 text-xs"
+                      className="w-full bg-white border border-slate-300 rounded-lg px-2 py-1 text-slate-900 font-semibold focus:outline-none focus:border-teal-500 text-xs"
                     />
                   </div>
                 </div>
@@ -373,22 +373,22 @@ export function CanvaModal({
             </div>
 
             {/* Launch Canva Action Box */}
-            <div className="pt-3 border-t border-slate-800 space-y-2.5">
-              <div className="bg-gradient-to-r from-teal-500/10 to-purple-500/10 border border-teal-500/20 p-2.5 rounded-xl text-[11px] text-slate-300 space-y-1">
-                <div className="font-bold text-teal-300 flex items-center gap-1.5">
-                  <Sparkles className="w-3.5 h-3.5" /> Instant Canva Workflow:
+            <div className="pt-3 border-t border-slate-100 space-y-2.5">
+              <div className="bg-teal-50/70 border border-teal-200 p-2.5 rounded-xl text-[11px] text-slate-700 space-y-1">
+                <div className="font-bold text-teal-800 flex items-center gap-1.5">
+                  <Sparkles className="w-3.5 h-3.5 text-teal-600" /> Instant Canva Workflow:
                 </div>
-                <div className="text-slate-400 leading-snug">
+                <div className="text-slate-600 leading-snug">
                   1. Clicking below copies your frame to the clipboard and opens Canva.
                   <br />
-                  2. Press <strong className="text-white font-mono">Ctrl + V</strong> (or Cmd+V)
+                  2. Press <strong className="text-slate-900 font-mono">Ctrl + V</strong> (or Cmd+V)
                   in Canva to paste your frame immediately!
                 </div>
               </div>
 
               <button
                 onClick={handleCopyAndLaunchCanva}
-                className="w-full py-3.5 px-4 rounded-2xl bg-gradient-to-r from-[#00c4cc] to-[#7d2ae8] hover:from-[#00b5bc] hover:to-[#7025d2] text-white font-extrabold text-sm shadow-xl shadow-purple-900/30 transition-all cursor-pointer flex items-center justify-center gap-2 transform active:scale-[0.99]"
+                className="w-full py-3.5 px-4 rounded-2xl bg-gradient-to-r from-[#00c4cc] to-[#7d2ae8] hover:from-[#00b5bc] hover:to-[#7025d2] text-white font-extrabold text-sm shadow-lg shadow-purple-500/20 transition-all cursor-pointer flex items-center justify-center gap-2 transform active:scale-[0.99]"
               >
                 {copiedSuccess ? (
                   <>

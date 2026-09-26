@@ -29,13 +29,13 @@ export function HistoryModal({ history, onClose, onClearHistory, onDeleteItem }:
 
   return (
     <>
-      <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4">
-        <div className="bg-slate-900 border border-slate-800 rounded-2xl max-w-2xl w-full p-6 shadow-2xl space-y-4 max-h-[85vh] flex flex-col">
-          <div className="flex items-center justify-between border-b border-slate-800 pb-3">
+      <div className="fixed inset-0 z-50 bg-slate-900/40 backdrop-blur-xs flex items-center justify-center p-4">
+        <div className="bg-white border border-slate-200 rounded-2xl max-w-2xl w-full p-6 shadow-2xl space-y-4 max-h-[85vh] flex flex-col">
+          <div className="flex items-center justify-between border-b border-slate-100 pb-3">
             <div className="flex items-center gap-2">
-              <History className="w-5 h-5 text-sky-400" />
-              <h3 className="text-base font-bold text-slate-100">Slicing History</h3>
-              <span className="text-xs px-2 py-0.5 rounded bg-slate-800 font-mono text-slate-400">
+              <History className="w-5 h-5 text-sky-600" />
+              <h3 className="text-base font-bold text-slate-900">Slicing History</h3>
+              <span className="text-xs px-2 py-0.5 rounded bg-slate-100 border border-slate-200 font-mono text-slate-600">
                 {history.length} items
               </span>
             </div>
@@ -44,13 +44,13 @@ export function HistoryModal({ history, onClose, onClearHistory, onDeleteItem }:
               {history.length > 0 && (
                 <button
                   onClick={() => setShowConfirmClear(true)}
-                  className="p-1.5 rounded-lg bg-slate-800 hover:bg-rose-500/10 text-slate-400 hover:text-rose-400 text-xs font-semibold flex items-center gap-1 transition-colors cursor-pointer"
+                  className="p-1.5 rounded-lg bg-slate-100 hover:bg-rose-50 border border-slate-200 text-slate-600 hover:text-rose-600 text-xs font-semibold flex items-center gap-1 transition-colors cursor-pointer shadow-2xs"
                   title="Clear History"
                 >
                   <Trash2 className="w-3.5 h-3.5" /> Clear All
                 </button>
               )}
-              <button onClick={onClose} className="text-slate-400 hover:text-white p-1 cursor-pointer">
+              <button onClick={onClose} className="text-slate-400 hover:text-slate-700 p-1 rounded-lg hover:bg-slate-100 cursor-pointer">
                 <X className="w-5 h-5" />
               </button>
             </div>
@@ -58,28 +58,28 @@ export function HistoryModal({ history, onClose, onClearHistory, onDeleteItem }:
 
           <div className="flex-1 overflow-y-auto space-y-3">
             {history.length === 0 ? (
-              <div className="text-slate-500 text-center py-12 text-xs">
+              <div className="text-slate-400 text-center py-12 text-xs">
                 No slicing history recorded yet. Completed jobs will appear here.
               </div>
             ) : (
               history.map((item) => (
                 <div
                   key={item.id}
-                  className="p-3.5 rounded-xl bg-slate-950 border border-slate-800 flex items-center justify-between gap-4 text-xs"
+                  className="p-3.5 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-between gap-4 text-xs shadow-2xs"
                 >
                   <div className="space-y-1 min-w-0">
                     <div className="flex items-center gap-2">
-                      <Film className="w-4 h-4 text-sky-400 shrink-0" />
-                      <span className="font-bold text-slate-100 truncate">{item.videoTitle}</span>
+                      <Film className="w-4 h-4 text-sky-600 shrink-0" />
+                      <span className="font-bold text-slate-900 truncate">{item.videoTitle}</span>
                     </div>
-                    <div className="flex flex-wrap items-center gap-3 text-slate-400 text-[11px]">
+                    <div className="flex flex-wrap items-center gap-3 text-slate-500 text-[11px]">
                       <span className="flex items-center gap-1">
-                        <Calendar className="w-3 h-3 text-slate-500" />
+                        <Calendar className="w-3 h-3 text-slate-400" />
                         {item.timestamp}
                       </span>
                       <span>• {formatTime(item.videoDuration)}</span>
                       <span>• {item.clipCount} Clips</span>
-                      <span className="text-sky-400 font-semibold">{item.aspectRatio}</span>
+                      <span className="text-sky-700 font-semibold">{item.aspectRatio}</span>
                     </div>
                   </div>
 
@@ -89,9 +89,9 @@ export function HistoryModal({ history, onClose, onClearHistory, onDeleteItem }:
                         href={`https://drive.google.com/drive/folders/${item.driveFolderId}`}
                         target="_blank"
                         rel="noreferrer"
-                        className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-sky-500/10 hover:bg-sky-500/20 text-sky-400 text-xs font-semibold border border-sky-500/30 transition-colors"
+                        className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-sky-50 hover:bg-sky-100 text-sky-700 text-xs font-semibold border border-sky-200 transition-colors shadow-2xs"
                       >
-                        <HardDrive className="w-3.5 h-3.5" />
+                        <HardDrive className="w-3.5 h-3.5 text-sky-600" />
                         Drive
                       </a>
                     )}
@@ -99,7 +99,7 @@ export function HistoryModal({ history, onClose, onClearHistory, onDeleteItem }:
                     {onDeleteItem && (
                       <button
                         onClick={() => setItemToDelete(item)}
-                        className="p-1.5 rounded-lg bg-slate-900 hover:bg-rose-500/10 border border-slate-800 text-slate-400 hover:text-rose-400 transition-colors cursor-pointer"
+                        className="p-1.5 rounded-lg bg-white hover:bg-rose-50 border border-slate-200 text-slate-400 hover:text-rose-600 transition-colors cursor-pointer shadow-2xs"
                         title="Delete this history record"
                       >
                         <Trash2 className="w-3.5 h-3.5" />

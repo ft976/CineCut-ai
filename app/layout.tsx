@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from 'next';
 import './globals.css';
 
 export const viewport: Viewport = {
-  themeColor: '#0b0f19',
+  themeColor: '#ffffff',
   width: 'device-width',
   initialScale: 1,
   maximumScale: 5,
@@ -64,8 +64,8 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className="dark">
-      <body suppressHydrationWarning className="bg-[#0b0f19] text-slate-100 antialiased selection:bg-sky-500/30 selection:text-sky-200">
+    <html lang="en" className="light">
+      <body suppressHydrationWarning className="bg-slate-50 text-slate-900 antialiased selection:bg-sky-500/20 selection:text-sky-900">
         {children}
       </body>
     </html>

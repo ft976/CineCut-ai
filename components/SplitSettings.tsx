@@ -39,104 +39,142 @@ export function SplitSettings({
   captionCount = 0,
 }: SplitSettingsProps) {
   return (
-    <div className={`space-y-6 pt-2 border-t border-slate-800/60 transition-opacity ${isProcessing ? 'opacity-70 pointer-events-none' : ''}`}>
-      {/* Mode Selector */}
-      <div className="space-y-3">
-        <div className="flex items-center justify-between">
-          <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
-            Cut Mode
-            {isProcessing && (
-              <span className="text-rose-400 flex items-center gap-1 text-[11px] normal-case font-semibold">
-                <Lock className="w-3 h-3" /> Locked during processing
-              </span>
-            )}
-          </h3>
+    <div
+      className={`bg-white border border-slate-200/90 rounded-2xl p-4 sm:p-5 shadow-xs flex flex-col justify-between h-full space-y-5 transition-opacity ${
+        isProcessing ? 'opacity-70 pointer-events-none' : ''
+      }`}
+    >
+      {/* Card Header */}
+      <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+        <div className="flex items-center gap-2">
+          <div className="w-7 h-7 rounded-lg bg-indigo-50 border border-indigo-200/80 flex items-center justify-center text-indigo-600">
+            <SlidersHorizontal className="w-4 h-4" />
+          </div>
+          <div>
+            <h3 className="text-xs font-bold uppercase tracking-wider text-slate-800 flex items-center gap-2">
+              Slicing & Reframe Studio
+              {isProcessing && (
+                <span className="text-rose-600 flex items-center gap-1 text-[11px] normal-case font-semibold bg-rose-50 px-2 py-0.5 rounded border border-rose-200">
+                  <Lock className="w-3 h-3" /> Locked
+                </span>
+              )}
+            </h3>
+            <p className="text-[11px] text-slate-500">
+              Configure clip intervals, aspect ratio reframing, and visual Part badges
+            </p>
+          </div>
         </div>
+      </div>
 
-        <div className="flex flex-wrap items-center gap-2">
+      {/* Mode Selector Segmented Bar */}
+      <div className="space-y-2.5">
+        <label className="text-[11px] font-bold uppercase tracking-wider text-slate-500 block">
+          1. Cut Mode
+        </label>
+
+        <div className="grid grid-cols-3 gap-1.5 bg-slate-100/90 p-1 rounded-xl border border-slate-200/80">
           <button
             disabled={isProcessing}
             onClick={() => onSplitModeChange('interval')}
-            className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
+            className={`flex items-center justify-center gap-1.5 py-2 px-2.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
               splitMode === 'interval'
-                ? 'bg-sky-500 text-white shadow-sm'
-                : 'bg-slate-900 border border-slate-800 text-slate-400 hover:text-slate-200'
+                ? 'bg-white text-sky-700 shadow-xs border border-slate-200/80'
+                : 'text-slate-600 hover:text-slate-900'
             }`}
           >
-            <Clock className="w-3.5 h-3.5" /> Fixed Duration
+            <Clock className="w-3.5 h-3.5" />
+            <span className="truncate">Fixed Duration</span>
           </button>
 
           <button
             disabled={isProcessing}
             onClick={() => onSplitModeChange('count')}
-            className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
+            className={`flex items-center justify-center gap-1.5 py-2 px-2.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
               splitMode === 'count'
-                ? 'bg-sky-500 text-white shadow-sm'
-                : 'bg-slate-900 border border-slate-800 text-slate-400 hover:text-slate-200'
+                ? 'bg-white text-sky-700 shadow-xs border border-slate-200/80'
+                : 'text-slate-600 hover:text-slate-900'
             }`}
           >
-            <Hash className="w-3.5 h-3.5" /> Equal Parts
+            <Hash className="w-3.5 h-3.5" />
+            <span className="truncate">Equal Parts</span>
           </button>
 
           <button
             disabled={isProcessing}
             onClick={() => onSplitModeChange('custom')}
-            className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
+            className={`flex items-center justify-center gap-1.5 py-2 px-2.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
               splitMode === 'custom'
-                ? 'bg-sky-500 text-white shadow-sm'
-                : 'bg-slate-900 border border-slate-800 text-slate-400 hover:text-slate-200'
+                ? 'bg-white text-sky-700 shadow-xs border border-slate-200/80'
+                : 'text-slate-600 hover:text-slate-900'
             }`}
           >
-            <SlidersHorizontal className="w-3.5 h-3.5" /> Custom Timeframes
+            <SlidersHorizontal className="w-3.5 h-3.5" />
+            <span className="truncate">Custom Ranges</span>
           </button>
         </div>
       </div>
 
       {/* Mode-specific Controls */}
       {splitMode === 'interval' && (
-        <div className="flex flex-wrap items-center gap-2 text-xs">
-          <span className="text-slate-400 font-medium">Clip Length:</span>
-          {[
-            { label: '15s', val: 15 },
-            { label: '30s', val: 30 },
-            { label: '1 min (Shorts)', val: 60 },
-            { label: '2 min', val: 120 },
-            { label: '3 min', val: 180 },
-            { label: '5 min', val: 300 },
-          ].map((preset) => (
-            <button
-              key={preset.val}
-              disabled={isProcessing}
-              onClick={() => onIntervalSecondsChange(preset.val)}
-              className={`px-3 py-1 rounded-lg font-medium border transition-colors cursor-pointer ${
-                intervalSeconds === preset.val
-                  ? 'bg-sky-500/20 border-sky-400 text-sky-300'
-                  : 'bg-slate-900 border-slate-800 text-slate-400 hover:border-slate-700'
-              }`}
-            >
-              {preset.label}
-            </button>
-          ))}
+        <div className="bg-slate-50/80 border border-slate-200/80 rounded-xl p-3 space-y-2.5 text-xs">
+          <div className="flex items-center justify-between">
+            <span className="text-slate-600 font-semibold">Clip Duration Preset:</span>
+            <div className="flex items-center gap-1.5">
+              <span className="text-slate-500 text-[11px]">Exact sec:</span>
+              <input
+                type="number"
+                min="5"
+                max="1800"
+                disabled={isProcessing}
+                value={intervalSeconds}
+                onChange={(e) => onIntervalSecondsChange(parseInt(e.target.value) || 60)}
+                className="w-16 bg-white border border-slate-300 rounded-lg px-2 py-1 font-mono font-bold text-center text-sky-700 focus:outline-none focus:border-sky-500 disabled:opacity-50 shadow-2xs"
+              />
+            </div>
+          </div>
 
-          <div className="flex items-center gap-1.5 ml-auto">
-            <span className="text-slate-400">Custom:</span>
-            <input
-              type="number"
-              min="5"
-              max="1800"
-              disabled={isProcessing}
-              value={intervalSeconds}
-              onChange={(e) => onIntervalSecondsChange(parseInt(e.target.value) || 60)}
-              className="w-16 bg-slate-900 border border-slate-800 rounded px-2 py-1 font-mono text-center text-slate-200 disabled:opacity-50"
-            />
-            <span className="text-slate-400">sec</span>
+          <div className="flex flex-wrap items-center gap-1.5">
+            {[
+              { label: '15s', val: 15 },
+              { label: '30s', val: 30 },
+              { label: '60s (Shorts)', val: 60 },
+              { label: '90s', val: 90 },
+              { label: '2 min', val: 120 },
+              { label: '3 min', val: 180 },
+              { label: '5 min', val: 300 },
+            ].map((preset) => (
+              <button
+                key={preset.val}
+                disabled={isProcessing}
+                onClick={() => onIntervalSecondsChange(preset.val)}
+                className={`px-2.5 py-1 rounded-lg font-semibold border transition-all cursor-pointer ${
+                  intervalSeconds === preset.val
+                    ? 'bg-sky-600 border-sky-600 text-white shadow-2xs'
+                    : 'bg-white border-slate-200 text-slate-700 hover:border-slate-300 shadow-2xs'
+                }`}
+              >
+                {preset.label}
+              </button>
+            ))}
           </div>
         </div>
       )}
 
       {splitMode === 'count' && (
-        <div className="flex items-center gap-4 text-xs">
-          <span className="text-slate-400 font-medium">Split Into:</span>
+        <div className="bg-slate-50/80 border border-slate-200/80 rounded-xl p-3.5 space-y-2 text-xs">
+          <div className="flex items-center justify-between">
+            <span className="text-slate-600 font-semibold">Total Equal Clips:</span>
+            <div className="flex items-center gap-2">
+              <span className="font-bold text-sky-700 font-mono bg-sky-50 border border-sky-200 px-2 py-0.5 rounded">
+                {segmentCount} Clips
+              </span>
+              {videoDuration > 0 && (
+                <span className="text-slate-500 font-mono text-[11px]">
+                  (~{Math.round(videoDuration / segmentCount)}s each)
+                </span>
+              )}
+            </div>
+          </div>
           <input
             type="range"
             min="2"
@@ -144,35 +182,29 @@ export function SplitSettings({
             disabled={isProcessing}
             value={segmentCount}
             onChange={(e) => onSegmentCountChange(parseInt(e.target.value) || 2)}
-            className="flex-1 accent-sky-500 max-w-xs disabled:opacity-50"
+            className="w-full accent-sky-600 cursor-pointer disabled:opacity-50"
           />
-          <span className="font-bold text-sky-400 font-mono">{segmentCount} Clips</span>
-          {videoDuration > 0 && (
-            <span className="text-slate-500 ml-auto">
-              (~{Math.round(videoDuration / segmentCount)}s per clip)
-            </span>
-          )}
         </div>
       )}
 
       {splitMode === 'custom' && (
-        <div className="text-xs text-sky-300 bg-sky-500/10 border border-sky-500/20 p-3 rounded-xl flex items-center justify-between">
+        <div className="text-xs text-sky-800 bg-sky-50/80 border border-sky-200 p-3 rounded-xl flex items-center justify-between">
           <span>
-            ✨ <strong>Custom Timeframes Mode active:</strong> Use the Start and End inputs in the Interactive Clip Timeline below to set precise timestamps for each clip.
+            <strong>Custom Timeframes Active:</strong> Adjust exact Start and End timestamps for each individual clip in the timeline below.
           </span>
         </div>
       )}
 
       {/* Aspect Ratio Controls */}
-      <div className="space-y-2 pt-2">
-        <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400">
-          Aspect Ratio
-        </h4>
-        <div className="flex items-center gap-2 max-w-md">
+      <div className="space-y-2">
+        <label className="text-[11px] font-bold uppercase tracking-wider text-slate-500 block">
+          2. Output Aspect Ratio
+        </label>
+        <div className="grid grid-cols-3 gap-2">
           {[
-            { mode: '9:16' as AspectRatioMode, label: '9:16 Vertical', icon: Smartphone },
-            { mode: '16:9' as AspectRatioMode, label: '16:9 Movie', icon: Monitor },
-            { mode: '1:1' as AspectRatioMode, label: '1:1 Square', icon: Square },
+            { mode: '9:16' as AspectRatioMode, label: '9:16 Vertical', sub: 'Shorts / Reels', icon: Smartphone },
+            { mode: '16:9' as AspectRatioMode, label: '16:9 Landscape', sub: 'YouTube / Original', icon: Monitor },
+            { mode: '1:1' as AspectRatioMode, label: '1:1 Square', sub: 'Feed Post', icon: Square },
           ].map((ratio) => {
             const Icon = ratio.icon;
             const isSelected = overlayOptions.aspectRatio === ratio.mode;
@@ -183,40 +215,136 @@ export function SplitSettings({
                 onClick={() =>
                   onOverlayOptionsChange({ ...overlayOptions, aspectRatio: ratio.mode })
                 }
-                className={`flex-1 p-2.5 rounded-lg border text-left transition-all cursor-pointer ${
+                className={`p-2.5 rounded-xl border text-left transition-all cursor-pointer flex items-start gap-2.5 ${
                   isSelected
-                    ? 'bg-sky-500/10 border-sky-400 text-slate-100'
-                    : 'bg-slate-900 border-slate-800 text-slate-400 hover:border-slate-700'
+                    ? 'bg-sky-50/80 border-sky-400 text-slate-900 shadow-2xs ring-1 ring-sky-400/30'
+                    : 'bg-white border-slate-200 text-slate-600 hover:border-slate-300 hover:bg-slate-50/50'
                 }`}
               >
-                <Icon className={`w-3.5 h-3.5 mb-1 ${isSelected ? 'text-sky-400' : 'text-slate-500'}`} />
-                <div className="text-xs font-semibold">{ratio.label}</div>
+                <Icon className={`w-4 h-4 mt-0.5 shrink-0 ${isSelected ? 'text-sky-600' : 'text-slate-400'}`} />
+                <div className="min-w-0">
+                  <div className="text-xs font-bold truncate">{ratio.label}</div>
+                  <div className="text-[10px] text-slate-500 truncate">{ratio.sub}</div>
+                </div>
               </button>
             );
           })}
         </div>
       </div>
 
+      {/* Frame Overlays & Styling Options */}
+      <div className="space-y-2 pt-1 border-t border-slate-100">
+        <label className="text-[11px] font-bold uppercase tracking-wider text-slate-500 block">
+          3. Frame Overlays &amp; Quality Preservation
+        </label>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs">
+          <label className="flex items-center justify-between gap-2 p-2.5 rounded-xl bg-slate-50 border border-slate-200/80 cursor-pointer select-none hover:border-slate-300 transition-colors">
+            <div>
+              <span className="font-bold text-slate-800 block">Part Number Badge</span>
+              <span className="text-[10px] text-slate-500">Stamp &quot;Part 1&quot;, &quot;Part 2&quot; on clips</span>
+            </div>
+            <input
+              type="checkbox"
+              disabled={isProcessing}
+              checked={overlayOptions.showPartBadge}
+              onChange={(e) =>
+                onOverlayOptionsChange({ ...overlayOptions, showPartBadge: e.target.checked })
+              }
+              className="accent-sky-600 w-4 h-4 rounded cursor-pointer"
+            />
+          </label>
+
+          <label className="flex items-center justify-between gap-2 p-2.5 rounded-xl bg-slate-50 border border-slate-200/80 cursor-pointer select-none hover:border-slate-300 transition-colors">
+            <div>
+              <span className="font-bold text-slate-800 block">Ambient Blur Fill</span>
+              <span className="text-[10px] text-slate-500">Soft blurred backdrop for 9:16</span>
+            </div>
+            <input
+              type="checkbox"
+              disabled={isProcessing}
+              checked={overlayOptions.blurBackground}
+              onChange={(e) =>
+                onOverlayOptionsChange({ ...overlayOptions, blurBackground: e.target.checked })
+              }
+              className="accent-sky-600 w-4 h-4 rounded cursor-pointer"
+            />
+          </label>
+        </div>
+
+        {/* Master Quality & Zero Frame-Drop Mode Selector */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
+          <button
+            type="button"
+            disabled={isProcessing}
+            onClick={() =>
+              onOverlayOptionsChange({ ...overlayOptions, qualityPreset: 'master-lossless' })
+            }
+            className={`p-2.5 rounded-xl border text-left transition-all cursor-pointer flex items-center justify-between gap-2 ${
+              (overlayOptions.qualityPreset || 'master-lossless') === 'master-lossless'
+                ? 'bg-emerald-50/80 border-emerald-400 text-slate-900 shadow-2xs ring-1 ring-emerald-400/30'
+                : 'bg-white border-slate-200 text-slate-600 hover:border-slate-300'
+            }`}
+          >
+            <div className="min-w-0">
+              <div className="text-xs font-bold flex items-center gap-1.5">
+                <span>Master Lossless 1080p</span>
+                <span className="px-1.5 py-0.2 rounded bg-emerald-600 text-white text-[9px] font-extrabold uppercase">
+                  CRF 16 · CFR
+                </span>
+              </div>
+              <div className="text-[10px] text-slate-500 truncate">
+                Zero frame drop · Lanczos scaling · 256k Audio
+              </div>
+            </div>
+          </button>
+
+          <button
+            type="button"
+            disabled={isProcessing}
+            onClick={() =>
+              onOverlayOptionsChange({ ...overlayOptions, qualityPreset: 'stream-copy' })
+            }
+            className={`p-2.5 rounded-xl border text-left transition-all cursor-pointer flex items-center justify-between gap-2 ${
+              overlayOptions.qualityPreset === 'stream-copy'
+                ? 'bg-sky-50/80 border-sky-400 text-slate-900 shadow-2xs ring-1 ring-sky-400/30'
+                : 'bg-white border-slate-200 text-slate-600 hover:border-slate-300'
+            }`}
+          >
+            <div className="min-w-0">
+              <div className="text-xs font-bold flex items-center gap-1.5">
+                <span>100% Bitstream Copy</span>
+                <span className="px-1.5 py-0.2 rounded bg-sky-600 text-white text-[9px] font-extrabold uppercase">
+                  Exact Original
+                </span>
+              </div>
+              <div className="text-[10px] text-slate-500 truncate">
+                Zero re-encoding · 100% untouched original frames
+              </div>
+            </div>
+          </button>
+        </div>
+      </div>
+
       {/* Canva Video Captions Studio Quick Card */}
       {onOpenCanvaStudio && (
-        <div className="pt-2">
-          <div className="p-4 rounded-2xl bg-gradient-to-r from-slate-900 via-indigo-950/40 to-slate-900 border border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div className="pt-1">
+          <div className="p-3.5 rounded-xl bg-gradient-to-r from-slate-50 via-indigo-50/40 to-slate-50 border border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-2xs">
             <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-[#00C4CC] via-[#7D2AE8] to-[#FF007A] p-0.5 flex items-center justify-center shrink-0 shadow-md">
-                <div className="w-full h-full bg-slate-950 rounded-[10px] flex items-center justify-center">
-                  <Sparkles className="w-4 h-4 text-[#00C4CC]" />
+              <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-[#00C4CC] via-[#7D2AE8] to-[#FF007A] p-0.5 flex items-center justify-center shrink-0 shadow-xs">
+                <div className="w-full h-full bg-white rounded-[9px] flex items-center justify-center">
+                  <Sparkles className="w-3.5 h-3.5 text-[#00C4CC]" />
                 </div>
               </div>
               <div>
                 <div className="flex items-center gap-2">
-                  <h4 className="text-xs font-extrabold text-white">Canva Video Captions</h4>
+                  <h4 className="text-xs font-extrabold text-slate-900">Canva Video Captions</h4>
                   {canvaConfig?.enabled && (
-                    <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-bold">
+                    <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 font-bold">
                       Active: {canvaConfig.styleId.replace('canva-', '').replace('-', ' ')}
                     </span>
                   )}
                 </div>
-                <p className="text-[11px] text-slate-400 mt-0.5">
+                <p className="text-[11px] text-slate-500">
                   {captionCount > 0
                     ? `${captionCount} AI synced captions ready to burn into video slices`
                     : 'Auto-generate timed captions & customize with 7 authentic Canva styles'}
@@ -228,10 +356,10 @@ export function SplitSettings({
               type="button"
               disabled={isProcessing}
               onClick={onOpenCanvaStudio}
-              className="px-4 py-2 rounded-xl bg-gradient-to-r from-[#00C4CC] to-[#7D2AE8] hover:opacity-90 text-white font-bold text-xs shadow-md transition-all cursor-pointer flex items-center justify-center gap-1.5 shrink-0 disabled:opacity-50"
+              className="px-3.5 py-2 rounded-xl bg-gradient-to-r from-[#00C4CC] to-[#7D2AE8] hover:opacity-90 text-white font-bold text-xs shadow-xs transition-all cursor-pointer flex items-center justify-center gap-1.5 shrink-0 disabled:opacity-50"
             >
               <Palette className="w-3.5 h-3.5" />
-              <span>Customize Canva Captions</span>
+              <span>Caption Studio</span>
             </button>
           </div>
         </div>
